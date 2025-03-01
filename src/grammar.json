@@ -727,6 +727,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "fn_proto"
+          },
+          {
+            "type": "SYMBOL",
             "name": "_primary_expr"
           }
         ]
@@ -2232,6 +2236,10 @@
     ],
     [
       "struct_expr"
+    ],
+    [
+      "_expr",
+      "fn_proto"
     ]
   ],
   "precedences": [],

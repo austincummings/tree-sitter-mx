@@ -24,7 +24,11 @@ module.exports = grammar({
 
   extras: ($) => [/\s/, $.line_comment],
 
-  conflicts: ($) => [[$._expr, $.comptime_expr], [$.struct_expr]],
+  conflicts: ($) => [
+    [$._expr, $.comptime_expr],
+    [$.struct_expr],
+    [$._expr, $.fn_proto],
+  ],
 
   rules: {
     source_file: ($) => optional($._stmt_list),
@@ -157,6 +161,7 @@ module.exports = grammar({
           $.unary_expr,
           $.binary_expr,
           $.comptime_call_expr,
+          $.fn_proto,
           $._primary_expr,
         ),
       ),
