@@ -47,7 +47,7 @@ module.exports = grammar({
         ")",
         ":",
         field("return_type", $.comptime_expr),
-        field("body", $.block),
+        choice(field("body", $.block), ";"),
       ),
 
     var_decl: ($) =>
@@ -73,7 +73,11 @@ module.exports = grammar({
         "struct",
         field("name", $.identifier),
         optional(seq("[", field("comptime_params", $.param_list), "]")),
-        field("body", $.block),
+        choice(
+          field("body", $.block),
+          seq("(", field("unit", $.comptime_expr), ")", ";"),
+          ";",
+        ),
       ),
 
     // Statements

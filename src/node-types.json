@@ -881,7 +881,7 @@
     "fields": {
       "body": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "block",
@@ -1995,7 +1995,7 @@
     "fields": {
       "body": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "block",
@@ -2019,6 +2019,16 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "unit": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "comptime_expr",
             "named": true
           }
         ]
