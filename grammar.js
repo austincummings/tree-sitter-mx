@@ -32,7 +32,15 @@ module.exports = grammar({
     // Declarations
 
     _decl: ($) =>
-      seq(choice($.struct_decl, $.fn_decl, $.var_decl, $.const_decl)),
+      seq(
+        choice(
+          $.struct_decl,
+          $.fn_decl,
+          $.var_decl,
+          $.const_decl,
+          $.trait_decl,
+        ),
+      ),
 
     fn_decl: ($) => seq(field("prototype", $.fn_proto), field("body", $.block)),
 

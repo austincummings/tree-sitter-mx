@@ -36,6 +36,10 @@
             {
               "type": "SYMBOL",
               "name": "const_decl"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "trait_decl"
             }
           ]
         }
