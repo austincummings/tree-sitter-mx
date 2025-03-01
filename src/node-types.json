@@ -881,7 +881,7 @@
     "fields": {
       "body": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "block",
@@ -889,6 +889,22 @@
           }
         ]
       },
+      "prototype": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "fn_proto",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "fn_proto",
+    "named": true,
+    "fields": {
       "comptime_params": {
         "multiple": false,
         "required": false,

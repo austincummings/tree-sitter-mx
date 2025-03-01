@@ -34,7 +34,9 @@ module.exports = grammar({
     _decl: ($) =>
       seq(choice($.struct_decl, $.fn_decl, $.var_decl, $.const_decl)),
 
-    fn_decl: ($) =>
+    fn_decl: ($) => seq(field("prototype", $.fn_proto), field("body", $.block)),
+
+    fn_proto: ($) =>
       seq(
         optional("comptime"),
         "fn",
@@ -47,7 +49,6 @@ module.exports = grammar({
         ")",
         ":",
         field("return_type", $.comptime_expr),
-        choice(field("body", $.block), ";"),
       ),
 
     var_decl: ($) =>
@@ -78,6 +79,14 @@ module.exports = grammar({
           seq("(", field("unit", $.comptime_expr), ")", ";"),
           ";",
         ),
+      ),
+
+    trait_decl: ($) =>
+      seq(
+        "trait",
+        field("name", $.identifier),
+        optional(seq("[", field("comptime_params", $.param_list), "]")),
+        field("body", $.block),
       ),
 
     // Statements
