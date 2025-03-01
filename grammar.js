@@ -24,7 +24,7 @@ module.exports = grammar({
 
   extras: ($) => [/\s/, $.line_comment],
 
-  conflicts: ($) => [[$._expr, $.comptime_expr]],
+  conflicts: ($) => [[$._expr, $.comptime_expr], [$.struct_expr]],
 
   rules: {
     source_file: ($) => optional($._stmt_list),
@@ -182,10 +182,18 @@ module.exports = grammar({
         PREC.struct,
         seq(
           "new",
-          field("name", optional($.identifier)),
-          "{",
-          field("fields", optional($.struct_field_expr_list)),
-          "}",
+          field("target", $.identifier),
+          optional(seq("[", field("comptime_args", $.expr_list), "]")),
+          optional(
+            choice(
+              seq(
+                "{",
+                field("fields", optional($.struct_field_expr_list)),
+                "}",
+              ),
+              seq("(", field("arg", $._expr), ")"),
+            ),
+          ),
         ),
       ),
 
