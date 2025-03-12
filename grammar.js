@@ -4,6 +4,7 @@ const PREC = {
   comptime_call: 18,
   call: 17,
   fn_proto: 16, // Add precedence for function prototypes
+  tuple: 15, // Tuple expressions have high precedence in Rust
   unary: 14,
   range: 13,
   multiplicative: 12, // *, /, %
@@ -33,7 +34,15 @@ module.exports = grammar({
     // Declarations
 
     _decl: ($) =>
-      seq(choice($.struct_decl, $.fn_decl, $.var_decl, $.const_decl)),
+      seq(
+        choice(
+          $.struct_decl,
+          $.interface_decl,
+          $.fn_decl,
+          $.var_decl,
+          $.const_decl,
+        ),
+      ),
 
     fn_decl: ($) => seq(field("proto", $.fn_proto), field("body", $.block)),
 
@@ -77,8 +86,18 @@ module.exports = grammar({
         "struct",
         field("name", $.identifier),
         optional(seq("[", field("comptime_params", $.param_list), "]")),
-        field("body", $.block),
+        field("body", choice($.block, ";")),
       ),
+
+    interface_decl: ($) =>
+      seq(
+        "interface",
+        field("name", $.identifier),
+        optional(seq("[", field("comptime_params", $.param_list), "]")),
+        field("body", $.interface_body),
+      ),
+
+    interface_body: ($) => seq("{", repeat1(seq($.fn_proto, ";")), "}"),
 
     // Statements
 
@@ -159,6 +178,7 @@ module.exports = grammar({
         $.variable_expr,
         $.group_expr,
         $.block,
+        $.tuple_expr,
       ),
 
     member_expr: ($) =>
@@ -328,7 +348,7 @@ module.exports = grammar({
         PREC.comptime_call,
         seq(
           field("callee", choice($._primary_expr)),
-          seq("[", field("comptime_args", $.expr_list), "]"),
+          seq("[", field("comptime_args", $.args_list), "]"),
         ),
       ),
 
@@ -338,12 +358,38 @@ module.exports = grammar({
         seq(
           field("callee", $.comptime_expr),
           "(",
-          field("args", optional($.expr_list)),
+          field("args", optional($.args_list)),
           ")",
         ),
       ),
 
     block: ($) => seq("{", optional($._stmt_list), field("end", "}")),
+
+    tuple_expr: ($) =>
+      prec(
+        PREC.tuple,
+        choice(
+          // Empty tuple: ()
+          seq("(", ")"),
+          // Single-element tuple: (x,) or (a: x,)
+          seq("(", $.tuple_field, ",", ")"),
+          // Multi-element tuple: (x, y, ...) or (a: x, b: y, ...) - requires at least two elements
+          seq(
+            "(",
+            $.tuple_field,
+            ",",
+            $.tuple_field,
+            optional(seq(repeat(seq(",", $.tuple_field)), optional(","))),
+            ")",
+          ),
+        ),
+      ),
+
+    tuple_field: ($) =>
+      seq(
+        optional(seq(field("name", $.identifier), ":")),
+        field("value", $._expr),
+      ),
 
     int_literal: ($) => /\d+/,
 
@@ -422,7 +468,13 @@ module.exports = grammar({
 
     param: ($) => seq(field("name", $.identifier), ":", field("type", $._expr)),
 
-    expr_list: ($) => seq($._expr, repeat(seq(",", $._expr)), optional(",")),
+    args_list: ($) => seq($.arg, repeat(seq(",", $.arg)), optional(",")),
+
+    arg: ($) =>
+      seq(
+        optional(seq(field("name", $.identifier), ":")),
+        field("value", $._expr),
+      ),
 
     identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
   },
