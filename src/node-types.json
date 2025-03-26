@@ -66,10 +66,6 @@
             "named": true
           },
           {
-            "type": "range_expr",
-            "named": true
-          },
-          {
             "type": "string_literal",
             "named": true
           },
@@ -161,10 +157,6 @@
             "named": true
           },
           {
-            "type": "range_expr",
-            "named": true
-          },
-          {
             "type": "string_literal",
             "named": true
           },
@@ -232,10 +224,6 @@
           },
           {
             "type": "multiline_string_literal",
-            "named": true
-          },
-          {
-            "type": "range_expr",
             "named": true
           },
           {
@@ -322,10 +310,6 @@
           },
           {
             "type": "multiline_string_literal",
-            "named": true
-          },
-          {
-            "type": "range_expr",
             "named": true
           },
           {
@@ -473,10 +457,6 @@
             "named": true
           },
           {
-            "type": "range_expr",
-            "named": true
-          },
-          {
             "type": "string_literal",
             "named": true
           },
@@ -544,19 +524,11 @@
           "named": true
         },
         {
-          "type": "interface_decl",
-          "named": true
-        },
-        {
           "type": "loop_stmt",
           "named": true
         },
         {
           "type": "return_stmt",
-          "named": true
-        },
-        {
-          "type": "struct_decl",
           "named": true
         },
         {
@@ -752,6 +724,10 @@
             "named": true
           },
           {
+            "type": "struct_expr",
+            "named": true
+          },
+          {
             "type": "tuple_expr",
             "named": true
           },
@@ -873,10 +849,6 @@
           },
           {
             "type": "multiline_string_literal",
-            "named": true
-          },
-          {
-            "type": "range_expr",
             "named": true
           },
           {
@@ -1038,10 +1010,6 @@
           "named": true
         },
         {
-          "type": "range_expr",
-          "named": true
-        },
-        {
           "type": "string_literal",
           "named": true
         },
@@ -1117,10 +1085,6 @@
             "named": true
           },
           {
-            "type": "range_expr",
-            "named": true
-          },
-          {
             "type": "string_literal",
             "named": true
           },
@@ -1162,57 +1126,6 @@
         "types": [
           {
             "type": "block",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "interface_body",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "fn_proto",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "interface_decl",
-    "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "interface_body",
-            "named": true
-          }
-        ]
-      },
-      "comptime_params": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "param_list",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
             "named": true
           }
         ]
@@ -1273,10 +1186,6 @@
           },
           {
             "type": "multiline_string_literal",
-            "named": true
-          },
-          {
-            "type": "range_expr",
             "named": true
           },
           {
@@ -1347,10 +1256,6 @@
           },
           {
             "type": "multiline_string_literal",
-            "named": true
-          },
-          {
-            "type": "range_expr",
             "named": true
           },
           {
@@ -1436,10 +1341,6 @@
           },
           {
             "type": "multiline_string_literal",
-            "named": true
-          },
-          {
-            "type": "range_expr",
             "named": true
           },
           {
@@ -1552,10 +1453,6 @@
           },
           {
             "type": "multiline_string_literal",
-            "named": true
-          },
-          {
-            "type": "range_expr",
             "named": true
           },
           {
@@ -1682,10 +1579,6 @@
             "named": true
           },
           {
-            "type": "range_expr",
-            "named": true
-          },
-          {
             "type": "string_literal",
             "named": true
           },
@@ -1718,128 +1611,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "range_expr",
-    "named": true,
-    "fields": {
-      "from": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "block",
-            "named": true
-          },
-          {
-            "type": "bool_literal",
-            "named": true
-          },
-          {
-            "type": "call_expr",
-            "named": true
-          },
-          {
-            "type": "float_literal",
-            "named": true
-          },
-          {
-            "type": "group_expr",
-            "named": true
-          },
-          {
-            "type": "int_literal",
-            "named": true
-          },
-          {
-            "type": "list_literal",
-            "named": true
-          },
-          {
-            "type": "map_literal",
-            "named": true
-          },
-          {
-            "type": "member_expr",
-            "named": true
-          },
-          {
-            "type": "multiline_string_literal",
-            "named": true
-          },
-          {
-            "type": "string_literal",
-            "named": true
-          },
-          {
-            "type": "tuple_expr",
-            "named": true
-          },
-          {
-            "type": "variable_expr",
-            "named": true
-          }
-        ]
-      },
-      "to": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "block",
-            "named": true
-          },
-          {
-            "type": "bool_literal",
-            "named": true
-          },
-          {
-            "type": "call_expr",
-            "named": true
-          },
-          {
-            "type": "float_literal",
-            "named": true
-          },
-          {
-            "type": "group_expr",
-            "named": true
-          },
-          {
-            "type": "int_literal",
-            "named": true
-          },
-          {
-            "type": "list_literal",
-            "named": true
-          },
-          {
-            "type": "map_literal",
-            "named": true
-          },
-          {
-            "type": "member_expr",
-            "named": true
-          },
-          {
-            "type": "multiline_string_literal",
-            "named": true
-          },
-          {
-            "type": "string_literal",
-            "named": true
-          },
-          {
-            "type": "tuple_expr",
-            "named": true
-          },
-          {
-            "type": "variable_expr",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -1896,10 +1667,6 @@
           },
           {
             "type": "multiline_string_literal",
-            "named": true
-          },
-          {
-            "type": "range_expr",
             "named": true
           },
           {
@@ -1970,19 +1737,11 @@
           "named": true
         },
         {
-          "type": "interface_decl",
-          "named": true
-        },
-        {
           "type": "loop_stmt",
           "named": true
         },
         {
           "type": "return_stmt",
-          "named": true
-        },
-        {
-          "type": "struct_decl",
           "named": true
         },
         {
@@ -2049,10 +1808,6 @@
           "named": true
         },
         {
-          "type": "range_expr",
-          "named": true
-        },
-        {
           "type": "string_literal",
           "named": true
         },
@@ -2095,7 +1850,7 @@
     }
   },
   {
-    "type": "struct_decl",
+    "type": "struct_expr",
     "named": true,
     "fields": {
       "body": {
@@ -2118,16 +1873,6 @@
         "types": [
           {
             "type": "param_list",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
             "named": true
           }
         ]
@@ -2216,10 +1961,6 @@
             "named": true
           },
           {
-            "type": "range_expr",
-            "named": true
-          },
-          {
             "type": "string_literal",
             "named": true
           },
@@ -2293,10 +2034,6 @@
           },
           {
             "type": "multiline_string_literal",
-            "named": true
-          },
-          {
-            "type": "range_expr",
             "named": true
           },
           {
@@ -2407,10 +2144,6 @@
           },
           {
             "type": "multiline_string_literal",
-            "named": true
-          },
-          {
-            "type": "range_expr",
             "named": true
           },
           {
@@ -2602,10 +2335,6 @@
     "named": true
   },
   {
-    "type": "interface",
-    "named": false
-  },
-  {
     "type": "line_comment",
     "named": true
   },
@@ -2639,10 +2368,6 @@
   },
   {
     "type": "struct",
-    "named": false
-  },
-  {
-    "type": "to",
     "named": false
   },
   {

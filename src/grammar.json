@@ -23,14 +23,6 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "struct_decl"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "interface_decl"
-            },
-            {
-              "type": "SYMBOL",
               "name": "fn_decl"
             },
             {
@@ -302,20 +294,12 @@
         }
       ]
     },
-    "struct_decl": {
+    "struct_expr": {
       "type": "SEQ",
       "members": [
         {
           "type": "STRING",
           "value": "struct"
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
         },
         {
           "type": "CHOICE",
@@ -362,89 +346,6 @@
               }
             ]
           }
-        }
-      ]
-    },
-    "interface_decl": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "interface"
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "["
-                },
-                {
-                  "type": "FIELD",
-                  "name": "comptime_params",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "param_list"
-                  }
-                },
-                {
-                  "type": "STRING",
-                  "value": "]"
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "FIELD",
-          "name": "body",
-          "content": {
-            "type": "SYMBOL",
-            "name": "interface_body"
-          }
-        }
-      ]
-    },
-    "interface_body": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "{"
-        },
-        {
-          "type": "REPEAT1",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "fn_proto"
-              },
-              {
-                "type": "STRING",
-                "value": ";"
-              }
-            ]
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "}"
         }
       ]
     },
@@ -703,10 +604,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "range_expr"
-        },
-        {
-          "type": "SYMBOL",
           "name": "_primary_expr"
         }
       ]
@@ -728,6 +625,10 @@
           {
             "type": "SYMBOL",
             "name": "fn_proto"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "struct_expr"
           },
           {
             "type": "SYMBOL",
@@ -851,35 +752,6 @@
           {
             "type": "STRING",
             "value": ")"
-          }
-        ]
-      }
-    },
-    "range_expr": {
-      "type": "PREC",
-      "value": 13,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "FIELD",
-            "name": "from",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_primary_expr"
-            }
-          },
-          {
-            "type": "STRING",
-            "value": "to"
-          },
-          {
-            "type": "FIELD",
-            "name": "to",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_primary_expr"
-            }
           }
         ]
       }

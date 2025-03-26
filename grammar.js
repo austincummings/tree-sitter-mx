@@ -33,16 +33,7 @@ module.exports = grammar({
 
     // Declarations
 
-    _decl: ($) =>
-      seq(
-        choice(
-          $.struct_decl,
-          $.interface_decl,
-          $.fn_decl,
-          $.var_decl,
-          $.const_decl,
-        ),
-      ),
+    _decl: ($) => seq(choice($.fn_decl, $.var_decl, $.const_decl)),
 
     fn_decl: ($) => seq(field("proto", $.fn_proto), field("body", $.block)),
 
@@ -81,23 +72,12 @@ module.exports = grammar({
         ";",
       ),
 
-    struct_decl: ($) =>
+    struct_expr: ($) =>
       seq(
         "struct",
-        field("name", $.identifier),
         optional(seq("[", field("comptime_params", $.param_list), "]")),
         field("body", choice($.block, ";")),
       ),
-
-    interface_decl: ($) =>
-      seq(
-        "interface",
-        field("name", $.identifier),
-        optional(seq("[", field("comptime_params", $.param_list), "]")),
-        field("body", $.interface_body),
-      ),
-
-    interface_body: ($) => seq("{", repeat1(seq($.fn_proto, ";")), "}"),
 
     // Statements
 
@@ -144,13 +124,7 @@ module.exports = grammar({
     // Expressions
 
     _expr: ($) =>
-      choice(
-        $.unary_expr,
-        $.binary_expr,
-        $.comptime_expr,
-        $.range_expr,
-        $._primary_expr,
-      ),
+      choice($.unary_expr, $.binary_expr, $.comptime_expr, $._primary_expr),
 
     comptime_expr: ($) =>
       field(
@@ -159,6 +133,7 @@ module.exports = grammar({
           $.unary_expr,
           $.binary_expr,
           $.fn_proto,
+          $.struct_expr,
           $.comptime_call_expr,
           $._primary_expr,
         ),
@@ -190,12 +165,6 @@ module.exports = grammar({
     variable_expr: ($) => field("name", $.identifier),
 
     group_expr: ($) => prec(PREC.group, seq("(", $._expr, ")")),
-
-    range_expr: ($) =>
-      prec(
-        PREC.range,
-        seq(field("from", $._primary_expr), "to", field("to", $._primary_expr)),
-      ),
 
     unary_expr: ($) =>
       prec(
